@@ -1,0 +1,11 @@
+docker build -t sys-call-demo .
+
+docker run --rm -d -p 8080:8080 --name sys-call-demo sys-call-demo:latest
+
+docker inspect -f '{{.State.Pid}}' sys-call-demo
+
+sudo strace -f -tt -p <PID> -o strace_output.txt
+
+cat strace_output.txt | grep -E 'accept|read|write'
+
+
